@@ -1,0 +1,26 @@
+{
+  "name": "pgl-get",
+  "version": "1.0.0",
+  "description": "get pgl rental team QR code",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node index.js",
+    "build": "browserify index.js > bundle.js"
+  },
+  "keywords": [
+    "pgl",
+    "pokemon"
+  ],
+  "author": "WindProphet",
+  "license": "MIT",
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "cheerio": "^0.22.0",
+    "cookie": "^0.3.1",
+    "express": "^4.14.1",
+    "opn": "^4.0.2",
+    "querystring": "^0.2.0",
+    "superagent": "^3.4.1"
+  }
+}

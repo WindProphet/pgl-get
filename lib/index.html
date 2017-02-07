@@ -4,6 +4,16 @@
     <meta charset="utf-8">
     <title>pgl-get</title>
     <script type="text/javascript">
+    function save(id,v) {
+      xh=new XMLHttpRequest();
+      url = "/save?"+"id="+encodeURIComponent(id)
+      if (v) {
+        url = url + "&value=" + encodeURIComponent(v)
+      }
+      xh.open("POST",url,false)
+      xh.send(null)
+      return xh.responseText
+    }
     </script>
   </head>
   <body>
@@ -15,6 +25,7 @@
       <input type="text" name="battleTeamCd" id="lb" value="">
       <br>
       <script type="text/javascript">
+      document.getElementById('ls').value = save("savedataId")
       aq = () => {
         xmlhttp2=new XMLHttpRequest();
         xmlhttp2.onreadystatechange = () => {
@@ -35,11 +46,11 @@
         xmlhttp2.open("GET",url,true)
         xmlhttp2.send(null)
       }
-        
+
       </script>
       <button onclick="aq()">submit</button>
       <div id="qrcode">
-        
+
       </div>
     </div>
     <div>
@@ -50,14 +61,19 @@
       <input type="text" name="password" id="lp" value="">
       <br>
       <script type="text/javascript">
+      document.getElementById('lu').value = save("username")
       al = () => {
         xmlhttp=new XMLHttpRequest();
+        save("username",document.getElementById('lu').value)
         xmlhttp.onreadystatechange = () => {
           if (xmlhttp.readyState==4)
             {// 4 = "loaded"
             if (xmlhttp.status==200)
               {// 200 = OK
-                document.getElementById('login').innerHTML = xmlhttp.responseText
+                e = JSON.parse(xmlhttp.responseText)
+                document.getElementById('login').innerHTML = e.savedataList[0].savedataId
+                save("savedataId",e.savedataList[0].savedataId)
+                document.getElementById('ls').value = e.savedataList[0].savedataId
               }
             else
               {
@@ -67,14 +83,14 @@
         };
         url = "/login?"+"username="+document.getElementById('lu').value+'&'+"password="+document.getElementById('lp').value
         console.log(url);
-        xmlhttp.open("GET",url,true)
+        xmlhttp.open("POST",url,true)
         xmlhttp.send(null)
       }
-        
+
       </script>
       <button onclick="al()">submit</button>
       <div id="login">
-        
+
       </div>
     </div>
   </body>

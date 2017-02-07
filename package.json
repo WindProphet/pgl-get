@@ -4,6 +4,7 @@
   "description": "get pgl rental team QR code",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node index.js",
     "build": "browserify index.js > bundle.js"

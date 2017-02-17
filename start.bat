@@ -1,1 +1,1 @@
-./nodejsbin/nodejs.exe index.js
+.\nodejsbin\nodejs.exe index.js

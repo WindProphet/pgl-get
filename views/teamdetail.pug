@@ -1,0 +1,445 @@
+meta(name="viewport", content="width=device-width,initial-scale=1, maximum-scale=1,minimum-scale=1.0, user-scalable=0")
+include trainer.pug
+style(type="text/css").
+  #battleTeamDetail {
+    margin: 20px;
+  }
+  #battleTeamDetail>h3 {
+    position: relative;
+    background-image: none;
+    background-color: transparent;
+    border: 0;
+    color: #000;
+    font-weight: 700;
+    // padding-left: 85px;
+    font-size: 16px;
+    padding: 10px 10px 0 85px;
+    min-height: 30px;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 3px 3px 0 0 #fff inset, -3px -3px 0 0 #fff inset;
+  }
+  #battleTeamDetail>h3:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 16px;
+    width: 58px;
+    height: 40px;
+    border-right: 1px solid #d7d7d7;
+    background-image: url(https://n-3ds-pgl-contents.pokemon-gl.com/pc/common/images/icon/icons_rating_battle.png);
+    background-position: 0 -204px;
+    background-repeat: no-repeat;
+  }
+  #battleTeamDetail>h3.battleType1:before {
+    background-position: 0 -143px;
+  }
+  #battleTeamDetail>h3.battleType2:before {
+    background-position: 0 -288px;
+  }
+  #battleTeamDetail>p {
+    font-size: 16px;
+    margin: 0 30px;
+  }
+#battleTeamDetail
+  title= battleTeam.battleTeamCd
+  h3(class="battleType"+battleTeam.battleType)= battleTeam.battleTeamName
+  p= battleTeam.message
+  .battleteam-trainer-container(style="margin:30px")
+    +trainer(trainer)
+style(type="text/css").
+  html{ width:100%; /*height:100%;*/ margin:0; padding:0; font-size:100%;}
+  body{
+    width:100%;
+    margin:0;
+    padding:0;
+    text-align:left;
+    font-size:78% !important;
+    line-height:160%;
+    height:100%;
+    font-family: "webfont","メイリオ", Meiryo, sans-serif;
+    color:#333;
+    position:relative;
+    background:#fff;
+  }
+
+  img{ vertical-align:bottom; border:none; margin:0; padding:0;}
+  dl,dt,dd,ul,li{ list-style-type:none; margin:0; padding:0; font-size:100%;}
+  p{ margin:0 0 5px 0; padding:0; font-size:100%;}
+  h1,h2,h3,h4,h5{	margin:0;	padding:0; font-size:100%; line-height:150%; font-weight:normal;}
+  input,textarea{ padding:3px !important; margin:0 5px 0px 0 !important;}
+
+  /*th,td{word-break:break-all !important; word-wrap:break-word !important;}*/
+  td{ position:relative;}
+
+  /* ----- ここから HTML5 リセット追加  ----------*/
+  html, body, div, span, h1, h2, h3, h4, h5, h6, p, a, img,
+  dl, dt, dd, ol, ul, li, form, label, table, tr, th, td,
+  article, aside, canvas, details, figcaption, figure,
+  footer, header, hgroup, menu, nav, section, summary {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    font-weight: inherit;
+    font-style: inherit;
+    outline: none;
+  }
+
+  article, aside, canvas, details, figcaption, figure,
+  footer, header, hgroup, menu, nav, section, summary {
+    display: block;
+  }
+
+  table {
+    border-spacing: 0px;
+    empty-cells: show;
+  }
+
+  a{ color:#333; text-decoration:none;}
+  a:hover{ text-decoration:none;}
+
+  .battleSingle .pokemon .name {
+    background-color: #67A72F !important;
+  }
+  .battleDouble .pokemon .name {
+    background-color: #FEB071 !important;
+  }
+  .pokemon {
+    position: relative;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 210px;
+    height: 210px;
+    padding: 9px;
+    background: rgba(242,242,242,0.7);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 0 2px rgba(153,153,153,0.4), 0 0 0 2px #FFF inset;
+    vertical-align: top;
+    text-align: left;
+    // margin: 20px;
+  }
+  .pokemon .name {
+    background-image: url(https://n-3ds-pgl-contents.pokemon-gl.com/pc/common/images/icon/icon_ball_white_40.png);
+    background-size: 20px 20px;
+    background-color: #67A72F;
+    background-position: 5px center;
+    padding: 5px;
+    height: 19px;
+    padding-left: 28px;
+    color: #FFF;
+    background-repeat: no-repeat;
+  }
+  .pokemon .image {
+    position: absolute;
+    left: 9px;
+    top: 44px;
+    width: 71px;
+    height: 71px;
+    padding: 10px;
+    border: 1px solid #CCC;
+    box-shadow: 0 0 0 1px rgba(255,255,255,1);
+    background: #FFF;
+  }
+  .pokemon .image div {
+    width: 70px;
+    height: 70px;
+    background-position: 35px 35px;
+    background-repeat: repeat;
+    background-size: 100%;
+  }
+  .pokemon .types {
+    position: absolute;
+    left: 10px;
+    top: 141px;
+  }
+  .pokemon .types li {
+    letter-spacing: 0;
+    padding-top: 0;
+    margin-right: 3px;
+    color: #fff;
+    width: 44px;
+    height: 17px;
+    font-size: 10px !important;
+    line-height: 17px;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    // background-color: #333;
+    border-radius: 8px;
+  }
+  .pokemon .level {
+    right: 54px;
+    position: absolute;
+    top: 14px;
+    color: #FFF;
+  }
+  .pokemon .gender {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 24px;
+    height: 23px;
+    background: url(https://n-3ds-pgl-contents.pokemon-gl.com/pc/common/images/mypage/gts/bg_panel_sex.png) no-repeat left top;
+    text-align: right;
+    font-size: 14px;
+    padding-right: 6px;
+    padding-top: 4px;
+  }
+  .pokemon .moves {
+    position: absolute;
+    right: 12px;
+    top: 45px;
+    width: 98px;
+    box-shadow: 0px 1px 0px #FFF, 0px -1px 0px #DBDBDB;
+    font-weight: bold;
+  }
+  .pokemon .moves li {
+    width: 91px;
+    font-size: 11px !important;
+    box-shadow: 0px -1px 0px #FFF, 0px 1px 0px #DBDBDB;
+    border-radius: 0;
+    background: none;
+    color: #333;
+    text-align: left;
+    border-right: 4px solid #F00;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 4px;
+    padding-bottom: 5px;
+  }
+  .pokemon .ability {
+    position: absolute;
+    left: 8px;
+    top: 168px;
+    width: 143px;
+    height: 21px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 2px;
+  }
+  .pokemon .ability, .pokemon .item {
+    border: 1px solid #CCC;
+    box-shadow: 0 0 0 1px #FFF;
+    font-size: 10px;
+    font-weight: bold;
+  }
+  .pokemon .item {
+    position: absolute;
+    left: 8px;
+    top: 168px;
+    width: 143px;
+    height: 21px;
+    padding-left: 6px;
+    padding-right: 57px;
+    padding-top: 26px;
+    background-repeat: no-repeat;
+    background-position: 160px 3px;
+    background-size: 40px 40px;
+  }
+  .type0 {
+    background-color: transparent
+  }
+
+  .type1 {
+    background-color: #B2AC8C
+  }
+
+  .type2 {
+    background-color: #934538
+  }
+
+  .type3 {
+    background-color: #F45C19
+  }
+
+  .type4 {
+    background-color: #4CACC2
+  }
+
+  .type5 {
+    background-color: #EAA317
+  }
+
+  .type6 {
+    background-color: #7E9ECF
+  }
+
+  .type7 {
+    background-color: #04A641
+  }
+
+  .type8 {
+    background-color: #967344
+  }
+
+  .type9 {
+    background-color: #8F5B98
+  }
+
+  .type10 {
+    background-color: #989001
+  }
+
+  .type11 {
+    background-color: #7A0049
+  }
+
+  .type12 {
+    background-color: #4392D5
+  }
+
+  .type13 {
+    background-color: #D7738D
+  }
+
+  .type14 {
+    background-color: #625EB3
+  }
+
+  .type15 {
+    background-color: #878052
+  }
+
+  .type16 {
+    background-color: #5563A4
+  }
+
+  .type17 {
+    background-color: #999
+  }
+
+  .type18 {
+    background-color: #FBF
+  }
+  .pokemon .moves .type0 {
+    border-right-color: transparent
+  }
+
+  .pokemon .moves .type1 {
+    border-right-color: #B2AC8C
+  }
+
+  .pokemon .moves .type2 {
+    border-right-color: #934538
+  }
+
+  .pokemon .moves .type3 {
+    border-right-color: #F45C19
+  }
+
+  .pokemon .moves .type4 {
+    border-right-color: #4CACC2
+  }
+
+  .pokemon .moves .type5 {
+    border-right-color: #EAA317
+  }
+
+  .pokemon .moves .type6 {
+    border-right-color: #7E9ECF
+  }
+
+  .pokemon .moves .type7 {
+    border-right-color: #04A641
+  }
+
+  .pokemon .moves .type8 {
+    border-right-color: #967344
+  }
+
+  .pokemon .moves .type9 {
+    border-right-color: #8F5B98
+  }
+
+  .pokemon .moves .type10 {
+    border-right-color: #989001
+  }
+
+  .pokemon .moves .type11 {
+    border-right-color: #7A0049
+  }
+
+  .pokemon .moves .type12 {
+    border-right-color: #4392D5
+  }
+
+  .pokemon .moves .type13 {
+    border-right-color: #D7738D
+  }
+
+  .pokemon .moves .type14 {
+    border-right-color: #625EB3
+  }
+
+  .pokemon .moves .type15 {
+    border-right-color: #878052
+  }
+
+  .pokemon .moves .type16 {
+    border-right-color: #5563A4
+  }
+
+  .pokemon .moves .type17 {
+    border-right-color: #999
+  }
+
+  .pokemon .moves .type18 {
+    border-right-color: #FBF
+  }
+
+  .pokemon .gender-0 {
+    color: #004689;
+  }
+
+  .pokemon .gender-1 {
+    color: #C33;
+  }
+
+  .pokemon-block {
+    width: 33%;
+    display: inline-block;
+    text-align: center;
+    padding: 20px 0;
+  }
+  @media (max-width: 767px) {
+    .pokemon-block {
+      width: 50%;
+      display: inline-block;
+      text-align: center;
+      padding: 20px 0;
+    }
+  }
+  @media (max-width: 480px) {
+    .pokemon-block {
+      width: 100%;
+      display: inline-block;
+      text-align: center;
+      padding: 20px 0;
+    }
+  }
+div.battleteam-pokemon-container(class=(battleType == 1 ? "battleSingle" : "battleDouble"))
+  each poke in pokemonList
+    div.pokemon-block
+      div.pokemon
+        div.name= poke.name
+        div.image
+          - r = (0x1000000|0x159a55e5*(poke.monsno+poke.formNo*0x10000)&0xFFFFFF).toString(16).substr(1);
+          div(style=("background-image:url(https://n-3ds-pgl-contents.pokemon-gl.com/share/images/pokemon/140/"+r+".png);"))
+        ul.types
+          li(class=("type"+poke.typeId1))= poke.typeName1
+          li(class=("type"+poke.typeId2))= poke.typeName2
+        div.level
+          li Lv. #{poke.level}
+        div.gender(class=("gender-"+poke.gender))= (poke.gender == 2)?(""):(poke.gender == 0?"♂":"♀")
+        ul.moves
+          li(class=("type"+poke.waza1.typeId))= poke.waza1.name
+          li(class=("type"+poke.waza2.typeId))= poke.waza2.name
+          li(class=("type"+poke.waza3.typeId))= poke.waza3.name
+          li(class=("type"+poke.waza4.typeId))= poke.waza4.name
+        div.ability
+          span Ability: #{poke.tokusei}
+        - itemimg = (0x1000000|0x159a55e5*(poke.itemId+0*0x10000)&0xFFFFFF).toString(16).substr(1);
+        div.item(style=("background-image:url(https://n-3ds-pgl-contents.pokemon-gl.com/share/images/item/"+itemimg+".png);"))
+          span ITEM: #{poke.itemName}

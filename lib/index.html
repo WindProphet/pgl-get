@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>pgl-get</title>
+    <link rel="stylesheet" href="/static/dist/material.min.css">
+    <script src="/static/dist/material.min.js" charset="utf-8"></script>
     <script type="text/javascript">
     function save(id,v) {
       xh=new XMLHttpRequest();
@@ -14,46 +16,97 @@
       xh.send(null)
       return xh.responseText
     }
+    function btchange() {
+      l = document.getElementById('lb').value
+      m = l.match(/3ds\.pokemon-gl\.com\/rentalteam\/(bt-[\w\d]{4}-[\w\d]{4})/i)
+      if (m) {
+        document.getElementById('lb').value = m[1]
+      }
+    }
     </script>
+    <style media="screen">
+      ._in {
+        padding: 10px;
+      }
+      ._out {
+        margin: 20px;
+      }
+    </style>
   </head>
   <body>
-    <div >
-      <label>savedataId</label>
-      <input type="text" name="savedataId" id="ls" value="">
-      <br>
-      <label>battleTeamCd</label>
-      <input type="text" name="battleTeamCd" id="lb" value="">
-      <br>
-      <script type="text/javascript">
-      document.getElementById('ls').value = save("savedataId")
-      aq = () => {
-        xmlhttp2=new XMLHttpRequest();
-        xmlhttp2.onreadystatechange = () => {
-          if (xmlhttp2.readyState==4)
-            {// 4 = "loaded"
-            if (xmlhttp2.status==200)
-              {// 200 = OK
-                document.getElementById('qrcode').innerHTML = xmlhttp2.responseText
-              }
-            else
-              {
-              // alert("Problem retrieving XML data");
-              }
+    <div class="card rich-card _out">
+    	<div>
+        <div>
+          <div class="text-input-container _in">
+    	       <i class="icon-contact-calendar text-input-icon"></i>
+    	       <input type="text" class="text-input border-green-500" placeholder="Input with an icon" name="savedataId" id="ls" value=""/>
+             <br>
+             <small>存档编号</small>
+             <br>
+          </div>
+          <br>
+          <div class="text-input-container _in">
+    	       <i class="icon-glyph-400 text-input-icon"></i>
+    	       <input type="text" class="text-input border-green-500" placeholder="Input with an icon" name="battleTeamCd" id="lb" value="" onchange="btchange()"/>
+             <br>
+             <small>对战队伍编号 BT-XXXX-XXXX</small>
+             <br>
+          </div>
+          <br>
+          <script type="text/javascript">
+          document.getElementById('ls').value = save("savedataId")
+          aq = () => {
+            xmlhttp2=new XMLHttpRequest();
+            xmlhttp2.onreadystatechange = () => {
+              if (xmlhttp2.readyState==4)
+                {// 4 = "loaded"
+                if (xmlhttp2.status==200)
+                  {// 200 = OK
+                    console.log(xmlhttp2.responseText);
+                    if (xmlhttp2.responseText == "no such team") {
+                      document.getElementById('qrcode').innerHTML = `<div class="toast rounded">
+                      	<label class="toast-label">没有相应的队伍</label>
+                      </div>`
+
+                    }
+                    else {
+                      document.getElementById('qrcode').innerHTML = xmlhttp2.responseText
+                    }
+                  }
+                }
+            };
+            url = "/qrcode?"+"savedataId="+document.getElementById('ls').value+'&'+"battleTeamCd="+document.getElementById('lb').value
+            console.log(url);
+            xmlhttp2.open("GET",url,true)
+            xmlhttp2.send(null)
+          }
+
+          </script>
+          <style media="screen">
+            #qrcode {
+              margin: 15px;
+              text-align:center;
             }
-        };
-        url = "/qrcode?"+"savedataId="+document.getElementById('ls').value+'&'+"battleTeamCd="+document.getElementById('lb').value
-        console.log(url);
-        xmlhttp2.open("GET",url,true)
-        xmlhttp2.send(null)
-      }
+            #qrcode > * {
+              display:inline-block;
+              margin: auto;
+            }
+          </style>
+          <div id="qrcode" style="">
 
-      </script>
-      <button onclick="aq()">submit</button>
-      <div id="qrcode">
-
-      </div>
+          </div>
+        </div>
+    	</div>
+    	<div class="divider"></div>
+    	<div class="card-footer">
+    		<!-- <button class="button flat">Share</button> -->
+    		<button class="button flat color-orange-500" onclick="aq()">查询</button>
+    	</div>
     </div>
-    <div>
+    <br>
+    <div class="card rich-card _out _in" style="width: 200px;">
+      <b>不知道存档编号的，在这里填入PGL账号密码查询，之后记住存档编号，之后使用不需要填账号</b>
+      <br>
       <label>username</label>
       <input type="text" name="username" id="lu" value="">
       <br>
@@ -62,9 +115,11 @@
       <br>
       <script type="text/javascript">
       document.getElementById('lu').value = save("username")
+      document.getElementById('lp').value = save("password")
       al = () => {
         xmlhttp=new XMLHttpRequest();
         save("username",document.getElementById('lu').value)
+        save("password",document.getElementById('lp').value)
         xmlhttp.onreadystatechange = () => {
           if (xmlhttp.readyState==4)
             {// 4 = "loaded"
@@ -74,10 +129,6 @@
                 document.getElementById('login').innerHTML = e.savedataList[0].savedataId
                 save("savedataId",e.savedataList[0].savedataId)
                 document.getElementById('ls').value = e.savedataList[0].savedataId
-              }
-            else
-              {
-              // alert("Problem retrieving XML data");
               }
             }
         };
